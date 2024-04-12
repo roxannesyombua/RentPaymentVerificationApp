@@ -1,0 +1,51 @@
+{
+  "tenants": [
+    {
+      "id": "1",
+      "name": "Clyde",
+      "apartment": "Tilburg",
+      "house no.": "Tilb 01",
+      "rent": "2000",
+      "modeofpayment": "mpesa"
+    },
+    {
+      "id": "2",
+      "name": "Kimberly",
+      "apartment": "Tilburg",
+      "house no.": "Tilb 02",
+      "rent": "2000",
+      "modeofpayment": "credit card"
+    },
+    {
+      "id": "3",
+      "name": "Tehila",
+      "apartment": "Tilburg",
+      "house no.": "Tilb 03",
+      "rent": "2000",
+      "modeofpayment": "mpesa"
+    },
+    {
+      "id": "4",
+      "name": "Dylan",
+      "apartment": "Euniza",
+      "House no.": "Ez 17",
+      "rent": "1000",
+      "modeofpayment": "money transfer"
+    },
+    {
+      "id": "5",
+      "name": "Mikayler",
+      "apartment": "Euniza",
+      "House no.": "Ez 21",
+      "rent": "1500",
+      "modeofpayment": "credit card"
+    },
+    {
+      "id": "f349",
+      "name": "Imani",
+      "rent": "1000",
+      "modeofpayment": "Credit Card",
+      "rentpaid": 0
+    }
+  ]
+}
