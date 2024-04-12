@@ -23,6 +23,7 @@ function loadOneTenant(tenant) {
     //Create Tenant
     let form = document.createElement('li')
     form.className = "form"
+    form.id = tenant.id
     form.innerHTML = `
    <div class ="content">
     <h4>${tenant.name}</h4>
@@ -36,30 +37,32 @@ function loadOneTenant(tenant) {
    <button>Remove-Tenant</button>
    </div>
    `
-    form.querySelector("button").addEventListener('click', () => {
-        //console.log("Button clicked");
-        const tenantElement = form.querySelector(".remove-tenant");
-        if (tenantElement) {
-            tenantElement.parentNode.removeChild(tenantElement);
-        }
-        deleteTenant(tenant.id)
-    });
+     form.querySelector('button').addEventListener('click', () => {
+         console.log("Button clicked");
+         const tenantElement = form.querySelector(".remove-tenant");
+         if (tenantElement) {
+             tenantElement.parentNode.removeChild(tenantElement);
+          }
+          deleteTenant(tenant.id)
+      });
+     
 
+     form.querySelector('button').addEventListener('click', () => {
+         //console.log("Button clicked");
+         tenant.rent += 1000;
+         const paidRent = parseInt(form.querySelector(".rent-paid").textContent);
+         form.querySelector(".rent-paid").textContent = paidRent + 1000;
+         console.log()
 
-    form.querySelector('button').addEventListener('click', () => {
-        console.log("Button clicked");
-        tenant.rent += 1000;
-        const paidRent = parseInt(form.querySelector(".rent-paid").textContent);
-        form.querySelector(".rent-paid").textContent = paidRent + 1000;
-        console.log()
+         updateRent(tenant);
+     });
 
-        updateRent(tenant);
-    });
-
-    //  form.querySelector('#Rent-Paid'), addEventListener('click', () => {
+    // form.querySelector('#Rent-Paid'), addEventListener('click', () => {
     //     tenant.rent += 1000
-    //      form.querySelector("span").textContent = tenant.rent
-    //      updateRent(tenant)
+    //     const paidRent = parseInt(form.querySelector(".rent-paid").textContent);
+    //     form.querySelector(".rent-paid").textContent = paidRent + 1000;
+    //     //form.querySelector("span").textContent = tenant.rent
+    //     updateRent(tenant)
     // })
 
     //Add Tenant Form to DOM
@@ -87,28 +90,28 @@ function addTenant(tenantObj) {
         .then(tenant => console.log(tenant))
 }
 
-function deleteTenant(id) {
-    fetch(`http://localhost:3000/tenants/${id}`, {
-        method: "DELETE",
-        headers: {
-            'Content-Type': 'application/json'
-        }
+// function deleteTenant(id) {
+//     fetch(`http://localhost:3000/tenants/${id}`, {
+//         method: "DELETE",
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }
+//     })
+//         .then(res => res.json())
+//         .then(tenant => console.log(tenant))
+// }
+
+ function updateRent(tenantObj) {
+     fetch(`http://localhost:3000/tenants/${tenantObj.id}`,{
+     method: 'PATCH',
+     headers: {
+         'Content-Type': 'application/json'
+     },
+     body: JSON.stringify(tenantObj)
     })
-        .then(res => res.json())
-        .then(tenant => console.log(tenant))
-}
-
-function updateRent(id) {
-    fetch(`http://localhost:3000/tenants/${id}`)
-    method: 'PATCH'
-    headers: {
-        'Content-Type'; 'application/json'
-    }
-    body: JSON.stringify(id)
-
-        .then(res => res.json())
-        .then(tenant => console.log(tenant))
-}
+         .then(res => res.json())
+         .then(tenant => console.log(tenantObj))
+ }
 
 //Initial Load
 //Get Data and Load Tenants to the DOM

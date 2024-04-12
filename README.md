@@ -5,7 +5,7 @@ Rent Payment Verification App
 Roxanne Syombua (https://github.com/roxannesyombua)
 
 ## Description 
-This repository contains code for an app that contains tenant profiles and aids in verification of rent payments
+This repository contains code for an app that contains tenant profiles and aids in update of rent payments.
 
 ## Live Site
 https://github.com/roxannesyombua/RentPaymentVerificationApp.git
