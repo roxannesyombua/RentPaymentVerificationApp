@@ -11,7 +11,7 @@ function handleSubmit(e) {
         name: e.target.name.value,
         rent: e.target.rent.value,
         modeofpayment: e.target.modeofpayment.value,
-        rentpaid: 0
+        
     }
     loadOneTenant(tenantObj);
     addTenant(tenantObj)
@@ -33,37 +33,28 @@ function loadOneTenant(tenant) {
     <p>Mode of Payment- ${tenant.modeofpayment}</p>
    </div>
    <div class="buttons">
-   <button>Rent-Paid</button>
    <button>Remove-Tenant</button>
+   <button>Rent-Paid</button>
    </div>
    `
-     form.querySelector('button').addEventListener('click', () => {
-         console.log("Button clicked");
+    // Adding Click Event Listener
+    form.querySelector('button').addEventListener('click', () => {
+        //console.log("Button clicked");
+        tenant.rent += 1000;
+        const paidRent = parseInt(form.querySelector(".rent-paid").textContent);
+        form.querySelector(".rent-paid").textContent = paidRent + 1000;
+        
+        updateRent(tenant);
+    });
+
+ form.querySelector('button').addEventListener('click', () => {
+         //console.log("Button clicked");
          const tenantElement = form.querySelector(".remove-tenant");
          if (tenantElement) {
              tenantElement.parentNode.removeChild(tenantElement);
-          }
-          deleteTenant(tenant.id)
-      });
-     
-
-     form.querySelector('button').addEventListener('click', () => {
-         //console.log("Button clicked");
-         tenant.rent += 1000;
-         const paidRent = parseInt(form.querySelector(".rent-paid").textContent);
-         form.querySelector(".rent-paid").textContent = paidRent + 1000;
-         console.log()
-
-         updateRent(tenant);
+         }
+         deleteTenant(tenant.id)
      });
-
-    // form.querySelector('#Rent-Paid'), addEventListener('click', () => {
-    //     tenant.rent += 1000
-    //     const paidRent = parseInt(form.querySelector(".rent-paid").textContent);
-    //     form.querySelector(".rent-paid").textContent = paidRent + 1000;
-    //     //form.querySelector("span").textContent = tenant.rent
-    //     updateRent(tenant)
-    // })
 
     //Add Tenant Form to DOM
     document.querySelector("#tenants").appendChild(form)
@@ -77,7 +68,7 @@ function getTenants() {
         .then(tenants => tenants.forEach(tenant => loadOneTenant(tenant)))
 
 }
-
+// Function to add tenant rent
 function addTenant(tenantObj) {
     fetch("http://localhost:3000/tenants", {
         method: 'POST',
@@ -90,28 +81,30 @@ function addTenant(tenantObj) {
         .then(tenant => console.log(tenant))
 }
 
-// function deleteTenant(id) {
-//     fetch(`http://localhost:3000/tenants/${id}`, {
-//         method: "DELETE",
-//         headers: {
-//             'Content-Type': 'application/json'
-//         }
-//     })
-//         .then(res => res.json())
-//         .then(tenant => console.log(tenant))
-// }
-
- function updateRent(tenantObj) {
-     fetch(`http://localhost:3000/tenants/${tenantObj.id}`,{
-     method: 'PATCH',
-     headers: {
-         'Content-Type': 'application/json'
-     },
-     body: JSON.stringify(tenantObj)
+// Function to Delete Tenant
+function deleteTenant(id) {
+    fetch(`http://localhost:3000/tenants/${id}`, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json'
+        }
     })
-         .then(res => res.json())
-         .then(tenant => console.log(tenantObj))
- }
+        .then(res => res.json())
+        .then(tenant => console.log(tenant))
+}
+
+// Function to update Tenant Rent
+function updateRent(tenantObj) {
+    fetch(`http://localhost:3000/tenants/${tenantObj.id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(tenantObj)
+    })
+        .then(res => res.json())
+        .then(updatedTenant => console.log(updatedTenant))
+}
 
 //Initial Load
 //Get Data and Load Tenants to the DOM
